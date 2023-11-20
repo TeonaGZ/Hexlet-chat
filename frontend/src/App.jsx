@@ -1,25 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Root from './components/Root.js';
+import LoginForm from './components/LoginForm.js';
+import PageNotFound from './components/PageNotFound.js';
 
 const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit
-        <code>src/App.js</code>
-        and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
+  <BrowserRouter>
+    <div>
+      <nav />
+      <Routes>
+        <Route path="/" element={<Root />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </div>
+  </BrowserRouter>
 );
 
 export default App;
