@@ -10,9 +10,9 @@ import {
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import axios from 'axios';
-import useAuth from '../utils/useAuth.jsx';
-import formSchema from '../utils/validator.js';
-import routes from '../routes.js';
+import useAuth from '../../utils/useAuth.jsx';
+import formSchema from '../../utils/validator.js';
+import routes from '../../routes.js';
 
 const LoginForm = () => {
   const auth = useAuth();
@@ -33,7 +33,6 @@ const LoginForm = () => {
       setAuthFailed(false);
 
       try {
-        console.log('111');
         const res = await axios.post(routes.loginPath(), values);
         auth.logIn();
         localStorage.setItem('userId', JSON.stringify(res.data));

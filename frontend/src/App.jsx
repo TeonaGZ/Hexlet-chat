@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useState, useMemo } from 'react';
 import AuthContext from './context/authContext.jsx';
-import RootPage from './components/RootPage.js';
-import LoginForm from './components/LoginForm.js';
-import PageNotFound from './components/PageNotFound.js';
+import RootPage from './components/pages/RootPage.js';
+import LoginForm from './components/pages/LoginForm.js';
+import PageNotFound from './components/pages/PageNotFound.js';
+import Nav from './components/Nav.jsx';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -27,7 +28,7 @@ const App = () => (
   <AuthProvider>
     <BrowserRouter>
       <div>
-        <nav />
+        <Nav />
         <Routes>
           <Route path="/" element={<RootPage />} />
           <Route path="/login" element={<LoginForm />} />
