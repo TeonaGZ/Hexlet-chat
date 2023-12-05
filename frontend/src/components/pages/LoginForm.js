@@ -51,37 +51,31 @@ const LoginForm = () => {
 
   return (
     <Container fluid className="h-100">
-      <Row className="justify-content-center align-content-center h-100">
-        <Col className="col-12 col-md8 col-xxl-6">
+      <Row className="h-100 justify-content-center align-content-center">
+        <Col xs={12} md={8} xxl={6}>
           <Card className="shadow-sm">
-            <Card.Body>
-              <Row className="p-5">
-                <Col className="col-12, col-md-6 d-flex align-items-center justify-content-center">
-                  <Card.Img src="./images/mountain.jpeg" className="rounded-circle" alt="Войти" />
-                </Col>
-              </Row>
-              <fieldset disabled={formik.isSubmitting}>
-                <Form onSubmit={formik.handleSubmit}>
-                  <Col className="col-12 col-md-6 mt-3 mt-mb-0">
-                    <h1 className="text-center mb-4">Войти</h1>
-                  </Col>
+            <Card.Body className="row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <img src="./images/mountain.jpeg" className="rounded-circle" alt="Войти" />
+              </div>
+              <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+                <h1 className="text-center mb-4">Войти</h1>
+                <fieldset disabled={formik.isSubmitting}>
                   <Form.Group className="form-floating mb-3">
-                    <Form.Label htmlFor="username">Ваш ник</Form.Label>
                     <Form.Control
                       name="username"
-                      type="text"
                       autoComplete="username"
-                      id="username"
-                      placeholder="Ваш ник"
                       required
+                      placeholder="Ваш ник"
+                      id="username"
                       onChange={formik.handleChange}
                       value={formik.values.username}
                       isInvalid={authFailed}
                       ref={inputRef}
                     />
+                    <Form.Label htmlFor="username">Ваш ник</Form.Label>
                   </Form.Group>
                   <Form.Group className="form-floating mb-4">
-                    <Form.Label htmlFor="password">Пароль</Form.Label>
                     <Form.Control
                       name="password"
                       type="password"
@@ -93,22 +87,24 @@ const LoginForm = () => {
                       value={formik.values.password}
                       isInvalid={authFailed}
                     />
+                    <Form.Label htmlFor="password">Пароль</Form.Label>
                     <Form.Control.Feedback type="invalid">
                       Неверные имя пользователя или пароль
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Button
                     type="submit"
-                    className="w-100 mb-3 btn btn-outline-primary"
+                    variant="outline-primary"
+                    className="w-100 mb-3 btn"
                   >
                     Войти
                   </Button>
-                </Form>
-              </fieldset>
+                </fieldset>
+              </Form>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта?</span>
+                <span>Нет аккаунта? </span>
                 <Link to="/signup">Регистрация</Link>
               </div>
             </Card.Footer>
