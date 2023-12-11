@@ -1,12 +1,17 @@
 import React from 'react';
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar, Container, Button } from 'react-bootstrap';
+import useAuth from '../utils/useAuth';
 
-const Nav = () => (
-  <Navbar expand="lg" variant="light" bg="wight" className="shadow-sm">
-    <Container>
-      <Navbar.Brand href="/">Chat</Navbar.Brand>
-    </Container>
-  </Navbar>
-);
+const Nav = () => {
+  const { loggedIn, logOut } = useAuth();
+  return (
+    <Navbar expand="lg" variant="light" className="shadow-sm bg-wight">
+      <Container>
+        <Navbar.Brand href="/">Chat</Navbar.Brand>
+        {!!loggedIn && <Button type="button" onClick={logOut}>Выйти</Button>}
+      </Container>
+    </Navbar>
+  );
+};
 
 export default Nav;
