@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
@@ -6,10 +7,11 @@ import useAuth from '../../utils/useAuth.jsx';
 import routes from '../../routes.js';
 import ChannelsBox from '../Channels/ChannelBox.jsx';
 import MessagesBox from '../Messages/MessagesBox.jsx';
+import { actions as channelsActions } from '../../slices/channelsSlice.js';
+import { actions as messagesActions } from '../../slices/messagesSlice.js';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
-
   if (userId && userId.token) {
     return { Authorization: `Bearer ${userId.token}` };
   }
@@ -17,15 +19,29 @@ const getAuthHeader = () => {
   return {};
 };
 
-export const loader = async () => {
-  const { data } = await axios.get(routes.dataPath(), { headers: getAuthHeader() });
-  return data;
-};
-
 const RootPage = () => {
-  const { loggedIn } = useAuth();
+  const auth = useAuth();
+  const headers = getAuthHeader();
+  const dispatch = useDispatch();
 
-  if (!loggedIn) {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(routes.dataPath, { headers });
+        dispatch(channelsActions.addChannels(data.channels));
+        dispatch(channelsActions.setCurrentChannel(data.currentChannelId));
+        dispatch(messagesActions.addMessages(data.messages));
+      } catch (err) {
+        if (err.isAxiosError && err.response.status === 401) {
+          auth.logOut();
+        }
+        throw err;
+      }
+    };
+    fetchData();
+  }, [dispatch, auth, headers]);
+
+  if (!auth.loggedIn) {
     return <Navigate to="/login" replace />;
   }
   return (
