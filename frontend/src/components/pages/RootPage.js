@@ -27,7 +27,7 @@ const RootPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(routes.dataPath, { headers });
+        const { data } = await axios.get(routes.dataPath(), { headers });
         dispatch(channelsActions.addChannels(data.channels));
         dispatch(channelsActions.setCurrentChannel(data.currentChannelId));
         dispatch(messagesActions.addMessages(data.messages));
