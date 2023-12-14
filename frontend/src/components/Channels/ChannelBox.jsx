@@ -7,15 +7,15 @@ import { selectors } from '../../slices/channelsSlice.js';
 
 const ChannelsBox = () => {
   const channels = useSelector(selectors.selectAll);
+  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
+
   return (
     <>
       <ChannelsHeader />
-      <Nav id="channels-box" as="ul" className="flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        <Nav.Item as="li" className="w-100">
-          {channels.map((channel) => (
-            <Channel key={channel.id} channel={channel} currentId={channel.currentChannelId} />
-          ))}
-        </Nav.Item>
+      <Nav id="channels-box" as="ul" fill className="flex-column px-2 mb-3 overflow-auto h-100 d-block" variant="pills">
+        {channels.map((channel) => (
+          <Channel key={channel.id} channel={channel} currentChannelId={currentChannelId} />
+        ))}
       </Nav>
     </>
   );

@@ -13,6 +13,7 @@ import axios from 'axios';
 import useAuth from '../../utils/useAuth.jsx';
 import formSchema from '../../utils/validator.js';
 import routes from '../../routes.js';
+import LoginImage from '../../images/LoginImage.jpeg';
 
 const LoginForm = () => {
   const auth = useAuth();
@@ -56,7 +57,7 @@ const LoginForm = () => {
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src="./images/mountain.jpeg" className="rounded-circle" alt="Войти" />
+                <img src={LoginImage} className="rounded-circle" alt="Войти" />
               </div>
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">Войти</h1>

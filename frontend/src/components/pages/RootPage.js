@@ -15,7 +15,6 @@ const getAuthHeader = () => {
   if (userId && userId.token) {
     return { Authorization: `Bearer ${userId.token}` };
   }
-
   return {};
 };
 
@@ -29,7 +28,7 @@ const RootPage = () => {
       try {
         const { data } = await axios.get(routes.dataPath(), { headers });
         dispatch(channelsActions.addChannels(data.channels));
-        dispatch(channelsActions.setCurrentChannel(data.currentChannelId));
+        dispatch(channelsActions.changeChannel(data.currentChannelId));
         dispatch(messagesActions.addMessages(data.messages));
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
