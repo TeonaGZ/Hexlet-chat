@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { Nav } from 'react-bootstrap';
 import Channel from './Channel.jsx';
 import ChannelsHeader from './ChannelsHeader.jsx';
-import { selectors } from '../../slices/channelsSlice.js';
+import { selectors as channelSelectors } from '../../slices/channelsSlice.js';
 
 const ChannelsBox = () => {
-  const channels = useSelector(selectors.selectAll);
-  const currentChannelId = useSelector(selectors.selectCurrentChannelId);
+  const channels = useSelector(channelSelectors.selectAll);
+  const currentChannelId = useSelector(channelSelectors.selectCurrentChannelId);
 
   return (
     <>

@@ -9,6 +9,8 @@ import ChannelsBox from '../Channels/ChannelBox.jsx';
 import MessagesBox from '../Messages/MessagesBox.jsx';
 import { actions as channelsActions } from '../../slices/channelsSlice.js';
 import { actions as messagesActions } from '../../slices/messagesSlice.js';
+// import { selectors as modalsSelectors } from '../../slices/modalsSlice.js';
+import ModalComponent from '../Modals/index.jsx';
 
 const getAuthHeader = () => {
   const userId = JSON.parse(localStorage.getItem('userId'));
@@ -22,6 +24,8 @@ const RootPage = () => {
   const auth = useAuth();
   const headers = getAuthHeader();
   const dispatch = useDispatch();
+
+  // const modalType = useSelector(modalsSelectors.getModalType);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,6 +57,7 @@ const RootPage = () => {
           <MessagesBox />
         </Col>
       </Row>
+      <ModalComponent />
     </Container>
   );
 };

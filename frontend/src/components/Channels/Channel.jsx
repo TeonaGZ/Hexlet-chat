@@ -9,11 +9,10 @@ const Channel = ({ channel, currentChannelId }) => {
   const handleSelectChannel = () => {
     dispatch(channelActions.changeChannel(channel.id));
   };
-
   return (
     <Nav.Item as="li" className="w-100">
       <Button onClick={handleSelectChannel} className="w-100 rounded-0 text-start" variant={channel.id === currentChannelId && 'secondary'}>
-        <span>#</span>
+        <span># </span>
         {channel.name}
       </Button>
     </Nav.Item>

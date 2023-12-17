@@ -25,10 +25,10 @@ const SocketProvider = ({ socket, children }) => {
       addMessage: async (body, currentChannelId, userId) => {
         await socket.emit('newMessage', { body, currentChannelId, userId });
       },
-      addChannel: async (values) => {
-        const { data } = await socket.emitWithAck('newChannel', values);
+      addChannel: async (channel) => {
+        const { data } = await socket.emitWithAck('newChannel', channel);
         dispatch(channelsActions.addChannel(data));
-        dispatch(channelsActions.setCurrentChannel(data.id));
+        dispatch(channelsActions.changeChannel(data.id));
       },
       renameChannel: async (id, name) => {
         await socket.emit('renameChannel', { id, name });

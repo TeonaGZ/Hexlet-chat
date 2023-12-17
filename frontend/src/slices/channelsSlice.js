@@ -35,6 +35,10 @@ const customSelectors = {
     const { currentChannelId } = state.channels;
     return selectors.selectById(state, currentChannelId);
   },
+  selectChannelsNames: (state) => {
+    const channels = selectors.selectAll(state);
+    return channels.map(({ name }) => name);
+  },
 };
 
 export { customSelectors as selectors };
