@@ -3,9 +3,13 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../slices/modalsSlice.js';
 import AddModal from './AddModal.jsx';
+import RemoveModal from './RemoveModal.jsx';
+import RenameModal from './RenameModal.jsx';
 
 const modal = {
   add: AddModal,
+  remove: RemoveModal,
+  rename: RenameModal,
 };
 
 const ModalComponent = () => {
