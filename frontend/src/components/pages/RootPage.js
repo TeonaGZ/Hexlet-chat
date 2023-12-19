@@ -34,6 +34,7 @@ const RootPage = () => {
       } catch (err) {
         if (err.isAxiosError && err.response.status === 401) {
           auth.logOut();
+          return;
         }
         throw err;
       }

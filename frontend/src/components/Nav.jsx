@@ -7,7 +7,7 @@ const Nav = () => {
   return (
     <Navbar expand="lg" variant="light" className="shadow-sm bg-wight">
       <Container>
-        <Navbar.Brand href="/">Chat</Navbar.Brand>
+        <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
         {!!loggedIn && <Button type="button" onClick={logOut}>Выйти</Button>}
       </Container>
     </Navbar>

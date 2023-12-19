@@ -22,4 +22,18 @@ export const messageSchema = yup.object().shape({
     .required(),
 });
 
+export const signupSchema = yup.object().shape({
+  username: yup.string()
+    .required('Обязательное поле')
+    .min(3, 'минимум 3')
+    .max(20, 'максимум 20'),
+  password: yup.string()
+    .required('Обязательное поле')
+    .min(6, 'минимум 6'),
+  confirmPassword: yup.string()
+    // .label('confirm password')
+    .required()
+    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+});
+
 export default formSchema;
