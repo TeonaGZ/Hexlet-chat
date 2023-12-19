@@ -8,7 +8,8 @@ import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 import { selectors as modalsSelectors } from '../../slices/modalsSlice.js';
 
 const RenameModal = ({ handleClose }) => {
-  const channels = useSelector(channelsSelectors.selectChannelsNames);
+  const channels = useSelector(channelsSelectors.selectAll);
+  const channelsNames = channels.map((channel) => channel.name);
   const targetId = useSelector(modalsSelectors.getTargetId);
 
   const chatApi = useChatApi();
@@ -22,7 +23,7 @@ const RenameModal = ({ handleClose }) => {
     initialValues: {
       name: '',
     },
-    validationSchema: modalSchema(channels),
+    validationSchema: modalSchema(channelsNames),
     onSubmit: async (values) => {
       try {
         await chatApi.renameChannel(targetId, values.name);

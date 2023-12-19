@@ -22,8 +22,8 @@ const SocketProvider = ({ socket, children }) => {
 
   const valuesOfProvider = useMemo(() => (
     {
-      addMessage: async (body, currentChannelId, userId) => {
-        await socket.emit('newMessage', { body, currentChannelId, userId });
+      addMessage: async (body, channelId, username) => {
+        await socket.emit('newMessage', { body, channelId, username });
       },
       addChannel: async (channel) => {
         const { data } = await socket.emitWithAck('newChannel', channel);

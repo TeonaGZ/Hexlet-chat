@@ -7,7 +7,9 @@ import useChatApi from '../../utils/useChatApi.jsx';
 import { selectors as channelsSelectors, actions as channelsActions } from '../../slices/channelsSlice.js';
 
 const AddModal = ({ handleClose }) => {
-  const channels = useSelector(channelsSelectors.selectChannelsNames);
+  const channels = useSelector(channelsSelectors.selectAll);
+  const channelsNames = channels.map((channel) => channel.name);
+
   const dispatch = useDispatch();
   const chatApi = useChatApi();
   const inputRef = useRef(null);
@@ -20,7 +22,7 @@ const AddModal = ({ handleClose }) => {
     initialValues: {
       name: '',
     },
-    validationSchema: modalSchema(channels),
+    validationSchema: modalSchema(channelsNames),
     onSubmit: async (values) => {
       try {
         const res = await chatApi.addChannel(values);

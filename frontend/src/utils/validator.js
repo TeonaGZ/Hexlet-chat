@@ -15,4 +15,11 @@ export const modalSchema = (channels) => yup.object().shape({
     .notOneOf(channels, 'уже есть'),
 });
 
+export const messageSchema = yup.object().shape({
+  body: yup
+    .string()
+    .trim()
+    .required(),
+});
+
 export default formSchema;
