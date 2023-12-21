@@ -61,24 +61,24 @@ const LoginForm = () => {
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src={LoginImage} className="rounded-circle" alt="Войти" />
+                <img src={LoginImage} className="rounded-circle" alt={t('logIn')} />
               </div>
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-                <h1 className="text-center mb-4">Войти</h1>
+                <h1 className="text-center mb-4">{t('logIn')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <Form.Group className="form-floating mb-3">
                     <Form.Control
                       name="username"
                       autoComplete="username"
                       required
-                      placeholder="Ваш ник"
+                      placeholder={t('nickname')}
                       id="username"
                       onChange={formik.handleChange}
                       value={formik.values.username}
                       isInvalid={authFailed}
                       ref={inputRef}
                     />
-                    <Form.Label htmlFor="username">Ваш ник</Form.Label>
+                    <Form.Label htmlFor="username">{t('nickname')}</Form.Label>
                   </Form.Group>
                   <Form.Group className="form-floating mb-4">
                     <Form.Control
@@ -86,15 +86,15 @@ const LoginForm = () => {
                       type="password"
                       autoComplete="current-password"
                       id="password"
-                      placeholder="Пароль"
+                      placeholder={t('password')}
                       required
                       onChange={formik.handleChange}
                       value={formik.values.password}
                       isInvalid={authFailed}
                     />
-                    <Form.Label htmlFor="password">Пароль</Form.Label>
+                    <Form.Label htmlFor="password">{t('password')}</Form.Label>
                     <Form.Control.Feedback type="invalid">
-                      Неверные имя пользователя или пароль
+                      {t('errors.incorrectProps')}
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Button
@@ -102,15 +102,15 @@ const LoginForm = () => {
                     variant="outline-primary"
                     className="w-100 mb-3 btn"
                   >
-                    Войти
+                    {t('logIn')}
                   </Button>
                 </fieldset>
               </Form>
             </Card.Body>
             <Card.Footer className="p-4">
               <div className="text-center">
-                <span>Нет аккаунта? </span>
-                <Link to="/signup">Регистрация</Link>
+                <span>{t('noAccount')}</span>
+                <Link to={routes.signUpForm}>{t('registration')}</Link>
               </div>
             </Card.Footer>
           </Card>

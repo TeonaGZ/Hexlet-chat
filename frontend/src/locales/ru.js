@@ -2,10 +2,13 @@ export default {
   translation: {
     chat: 'Hexlet Chat',
     exit: 'Выйти',
+    logIn: 'Войти',
     canReroute: 'Но вы можете перейти ',
     rootPage: 'на главную страницу',
     registration: 'Регистрация',
+    noAccount: 'Нет аккаунта?',
     username: 'Имя пользователя',
+    nickname: 'Ваш ник',
     password: 'Пароль',
     confirmPassword: 'Подтвердите пароль',
     register: 'Зарегистрироваться',
@@ -38,6 +41,7 @@ export default {
     errors: {
       pageNotFound: 'Страница не найдена',
       userExist: 'Такой пользователь уже существует',
+      incorrectProps: 'Неверные имя пользователя или пароль',
     },
     validationRules: {
       required: 'Обязательное поле',
