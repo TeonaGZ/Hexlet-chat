@@ -3,6 +3,7 @@ import { Form, InputGroup, Button } from 'react-bootstrap';
 import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import useChatApi from '../../utils/useChatApi';
 import { messageSchema } from '../../utils/validator.js';
 
@@ -19,6 +20,9 @@ const NewMessageForm = ({ currentChannelId }) => {
     validationSchema: messageSchema(t('validationRules.required')),
     onSubmit: async ({ body }) => {
       const { username } = JSON.parse(localStorage.getItem('userId'));
+
+      filter.add(filter.getDictionary('ru'));
+      body = filter.clean(body);
 
       try {
         await chatApi.addMessage(body, currentChannelId, username);
