@@ -9,6 +9,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import useAuth from '../../utils/useAuth.jsx';
 import formSchema from '../../utils/validator.js';
@@ -20,6 +21,9 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const [authFailed, setAuthFailed] = useState(false);
+
+  const { t } = useTranslation();
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -29,7 +33,7 @@ const LoginForm = () => {
       username: '',
       password: '',
     },
-    validationSchema: formSchema,
+    validationSchema: formSchema(t('validationRules.required')),
     onSubmit: async (values) => {
       setAuthFailed(false);
 

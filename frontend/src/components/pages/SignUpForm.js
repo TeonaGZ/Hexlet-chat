@@ -9,6 +9,7 @@ import {
   Button,
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import useAuth from '../../utils/useAuth.jsx';
 import { signupSchema } from '../../utils/validator.js';
@@ -18,6 +19,7 @@ import SignUpImage from '../../images/SignUpImage.jpg';
 const SignUpForm = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const inputRef = useRef(null);
   const [signUpFailed, setSignUpFailed] = useState(false);
 
@@ -27,7 +29,12 @@ const SignUpForm = () => {
       password: '',
       confirmPassword: '',
     },
-    validationSchema: signupSchema,
+    validationSchema: signupSchema(
+      t('validationRules.required'),
+      t('validationRules.nameLength'),
+      t('validationRules.minPassword'),
+      t('validationRules.matchPasswords'),
+    ),
     onSubmit: async ({ username, password }) => {
       setSignUpFailed(false);
 
@@ -35,7 +42,7 @@ const SignUpForm = () => {
         const res = await axios.post(routes.signUpPath(), { username, password });
         auth.logIn();
         localStorage.setItem('userId', JSON.stringify(res.data));
-        navigate('/');
+        navigate(routes.rootPage);
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 409) {
@@ -63,24 +70,24 @@ const SignUpForm = () => {
           <Card className="shadow-sm">
             <Card.Body className="d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
               <div>
-                <img src={SignUpImage} className="rounded-circle" alt="Регистрация" />
+                <img src={SignUpImage} className="rounded-circle" alt={t('registration')} />
               </div>
               <Form onSubmit={formik.handleSubmit} className="w-50">
-                <h1 className="text-center mb-4">Регистрация</h1>
+                <h1 className="text-center mb-4">{t('registration')}</h1>
                 <fieldset disabled={formik.isSubmitting}>
                   <Form.Floating className="mb-3">
                     <Form.Control
                       name="username"
                       autoComplete="username"
                       required
-                      placeholder="От 3 до 20 символов"
+                      placeholder={t('validationRules.nameLength')}
                       id="username"
                       onChange={formik.handleChange}
                       value={formik.values.username}
                       isInvalid={signUpFailed || isInvalidUsername}
                       ref={inputRef}
                     />
-                    <Form.Label htmlFor="username">Имя пользователя</Form.Label>
+                    <Form.Label htmlFor="username">{t('username')}</Form.Label>
                     <Form.Control.Feedback type="invalid">
                       {formik.errors.username}
                     </Form.Control.Feedback>
@@ -91,13 +98,13 @@ const SignUpForm = () => {
                       type="password"
                       autoComplete="new-password"
                       required
-                      placeholder="Не менее 6 символов"
+                      placeholder={t('validationRules.minPassword')}
                       id="password"
                       onChange={formik.handleChange}
                       value={formik.values.password}
                       isInvalid={signUpFailed || isInvalidPassword}
                     />
-                    <Form.Label htmlFor="password">Пароль</Form.Label>
+                    <Form.Label htmlFor="password">{t('password')}</Form.Label>
                     <Form.Control.Feedback type="invalid">
                       {formik.errors.password}
                     </Form.Control.Feedback>
@@ -108,15 +115,15 @@ const SignUpForm = () => {
                       type="password"
                       autoComplete="new-password"
                       id="confirmPassword"
-                      placeholder="Пароли должны совпадать"
+                      placeholder={t('validationRules.matchPasswords')}
                       required
                       onChange={formik.handleChange}
                       value={formik.values.confirmPassword}
                       isInvalid={signUpFailed || isInvalidConfirmPassword}
                     />
-                    <Form.Label htmlFor="password">Пароль</Form.Label>
+                    <Form.Label htmlFor="password">{t('confirmPassword')}</Form.Label>
                     <Form.Control.Feedback type="invalid">
-                      {formik.errors.confirmPassword || 'Такой пользователь уже существует'}
+                      {formik.errors.confirmPassword || t('errors.userExist')}
                     </Form.Control.Feedback>
                   </Form.Floating>
                   <Button
@@ -124,7 +131,7 @@ const SignUpForm = () => {
                     variant="outline-primary"
                     className="w-100"
                   >
-                    Зарегистрироваться
+                    {t('register')}
                   </Button>
                 </fieldset>
               </Form>

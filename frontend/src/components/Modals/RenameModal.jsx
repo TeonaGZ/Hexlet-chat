@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { modalSchema } from '../../utils/validator.js';
 import useChatApi from '../../utils/useChatApi.jsx';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
@@ -14,6 +15,7 @@ const RenameModal = ({ handleClose }) => {
 
   const chatApi = useChatApi();
   const inputRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -23,7 +25,12 @@ const RenameModal = ({ handleClose }) => {
     initialValues: {
       name: '',
     },
-    validationSchema: modalSchema(channelsNames),
+    validationSchema: modalSchema(
+      channelsNames,
+      t('validationRules.required'),
+      t('validationRules.nameLength'),
+      t('validationRules.duplicates'),
+    ),
     onSubmit: async (values) => {
       try {
         await chatApi.renameChannel(targetId, values.name);
@@ -42,7 +49,7 @@ const RenameModal = ({ handleClose }) => {
   return (
     <>
       <Modal.Header>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modals.renameChannel')}</Modal.Title>
         <Button
           type="button"
           className="btn-close"
@@ -67,21 +74,21 @@ const RenameModal = ({ handleClose }) => {
               value={formik.values.name}
             />
             <Form.Label visuallyHidden htmlFor="name">
-              Имя канала
+              {t('modals.channelName')}
             </Form.Label>
             <Form.Control.Feedback type="invalid">
               {formik.errors.name}
             </Form.Control.Feedback>
             <Modal.Footer>
               <Button variant="secondary" className="me-2" onClick={handleClose}>
-                Отменить
+                {t('modals.cancel')}
               </Button>
               <Button
                 type="submit"
                 variant="primary"
                 disabled={formik.isSubmitting}
               >
-                Отправить
+                {t('modals.send')}
               </Button>
             </Modal.Footer>
           </Form.Group>

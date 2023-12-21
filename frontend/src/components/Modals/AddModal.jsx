@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { modalSchema } from '../../utils/validator.js';
 import useChatApi from '../../utils/useChatApi.jsx';
 import { selectors as channelsSelectors, actions as channelsActions } from '../../slices/channelsSlice.js';
@@ -13,6 +14,7 @@ const AddModal = ({ handleClose }) => {
   const dispatch = useDispatch();
   const chatApi = useChatApi();
   const inputRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -22,7 +24,12 @@ const AddModal = ({ handleClose }) => {
     initialValues: {
       name: '',
     },
-    validationSchema: modalSchema(channelsNames),
+    validationSchema: modalSchema(
+      channelsNames,
+      t('validationRules.required'),
+      t('validationRules.nameLength'),
+      t('validationRules.duplicates'),
+    ),
     onSubmit: async (values) => {
       try {
         const res = await chatApi.addChannel(values);
@@ -42,7 +49,7 @@ const AddModal = ({ handleClose }) => {
   return (
     <>
       <Modal.Header>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modals.addChannel')}</Modal.Title>
         <Button
           type="button"
           className="btn-close"
@@ -67,21 +74,21 @@ const AddModal = ({ handleClose }) => {
               value={formik.values.name}
             />
             <Form.Label visuallyHidden htmlFor="name">
-              Имя канала
+              {t('modals.channelName')}
             </Form.Label>
             <Form.Control.Feedback type="invalid">
               {formik.errors.name}
             </Form.Control.Feedback>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
-                Отменить
+                {t('modals.cancel')}
               </Button>
               <Button
                 type="submit"
                 variant="primary"
                 disabled={formik.isSubmitting}
               >
-                Отправить
+                {t('modals.send')}
               </Button>
             </Modal.Footer>
           </Form.Group>

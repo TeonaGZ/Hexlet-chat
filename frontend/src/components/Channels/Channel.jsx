@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
   Nav,
   ButtonGroup,
@@ -11,6 +12,7 @@ import { actions as modalsActions } from '../../slices/modalsSlice.js';
 
 const Channel = ({ channel, currentChannelId }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleSelectChannel = () => {
     dispatch(channelActions.changeChannel(channel.id));
@@ -32,11 +34,11 @@ const Channel = ({ channel, currentChannelId }) => {
         id="dropdown-split-secondary"
         className="flex-grow-0"
       >
-        <span className="visually-hidden">Управление каналом</span>
+        <span className="visually-hidden">{t('channels.channelManagement')}</span>
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item onClick={handleRemoveChannel}>Удалить</Dropdown.Item>
-        <Dropdown.Item onClick={handleRenameChannel}>Переименовать</Dropdown.Item>
+        <Dropdown.Item onClick={handleRemoveChannel}>{t('channels.removeToggle')}</Dropdown.Item>
+        <Dropdown.Item onClick={handleRenameChannel}>{t('channels.renameToggle')}</Dropdown.Item>
       </Dropdown.Menu>
     </>
   );

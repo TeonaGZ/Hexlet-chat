@@ -1,39 +1,48 @@
 import * as yup from 'yup';
 
-const formSchema = yup.object().shape({
+const formSchema = (required) => yup.object().shape({
   username: yup.string()
-    .required('Обязательное поле'),
+    .required(required),
   password: yup.string()
-    .required('Обязательное поле'),
+    .required(required),
 });
 
-export const modalSchema = (channels) => yup.object().shape({
+export const modalSchema = (
+  channels,
+  required,
+  nameLength,
+  duplicates,
+) => yup.object().shape({
   name: yup.string()
-    .required('Обязательное поле')
-    .min(3, 'минимум 3')
-    .max(20, 'максимум 20')
-    .notOneOf(channels, 'уже есть'),
+    .required(required)
+    .min(3, nameLength)
+    .max(20, nameLength)
+    .notOneOf(channels, duplicates),
 });
 
-export const messageSchema = yup.object().shape({
+export const messageSchema = (required) => yup.object().shape({
   body: yup
     .string()
     .trim()
-    .required(),
+    .required(required),
 });
 
-export const signupSchema = yup.object().shape({
+export const signupSchema = (
+  required,
+  nameLength,
+  minPassword,
+  matchPasswords,
+) => yup.object().shape({
   username: yup.string()
-    .required('Обязательное поле')
-    .min(3, 'минимум 3')
-    .max(20, 'максимум 20'),
+    .required(required)
+    .min(3, nameLength)
+    .max(20, nameLength),
   password: yup.string()
-    .required('Обязательное поле')
-    .min(6, 'минимум 6'),
+    .required(required)
+    .min(6, minPassword),
   confirmPassword: yup.string()
-    // .label('confirm password')
-    .required()
-    .oneOf([yup.ref('password'), null], 'Passwords must match'),
+    .required(required)
+    .oneOf([yup.ref('password'), null], matchPasswords),
 });
 
 export default formSchema;

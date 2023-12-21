@@ -1,0 +1,52 @@
+export default {
+  translation: {
+    chat: 'Hexlet Chat',
+    exit: 'Выйти',
+    canReroute: 'Но вы можете перейти ',
+    rootPage: 'на главную страницу',
+    registration: 'Регистрация',
+    username: 'Имя пользователя',
+    password: 'Пароль',
+    confirmPassword: 'Подтвердите пароль',
+    register: 'Зарегистрироваться',
+    modals: {
+      cancel: 'Отменить',
+      send: 'Отправить',
+      remove: 'Удалить',
+      renameChannel: 'Переименовать канал',
+      channelName: 'Имя канала',
+      removeChannel: 'Удалить канал',
+      confirm: 'Уверены?',
+      addChannel: 'Добавить канал',
+    },
+    messages: {
+      newMessage: 'Новое сообщение',
+      inputMessage: 'Введите сообщение...',
+      sendMessage: 'Отправить',
+      counter: {
+        count_one: '{{count}} сообщение',
+        count_few: '{{count}} сообщения',
+        count_many: '{{count}} сообщений',
+      },
+    },
+    channels: {
+      channelsHeader: 'Каналы',
+      channelManagement: 'Управление каналом',
+      removeToggle: 'Удалить',
+      renameToggle: 'Переименовать',
+    },
+    errors: {
+      pageNotFound: 'Страница не найдена',
+      userExist: 'Такой пользователь уже существует',
+    },
+    validationRules: {
+      required: 'Обязательное поле',
+      minName: 'минимум 3',
+      maxName: 'максимум 20',
+      nameLength: 'От 3 до 20 символов',
+      duplicates: 'Должно быть уникальным',
+      minPassword: 'Не менее 6 символов',
+      matchPasswords: 'Пароли должны совпадать',
+    },
+  },
+};

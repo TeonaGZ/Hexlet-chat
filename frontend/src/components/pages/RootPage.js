@@ -43,7 +43,7 @@ const RootPage = () => {
   }, [dispatch, auth, headers]);
 
   if (!auth.loggedIn) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to={routes.loginForm} replace />;
   }
   return (
     <Container className="h-100 my-4 overflow-hidden rounded shadow">

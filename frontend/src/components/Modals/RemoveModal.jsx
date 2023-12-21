@@ -1,10 +1,12 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import useChatApi from '../../utils/useChatApi.jsx';
 import { selectors as modalsSelectors } from '../../slices/modalsSlice.js';
 
 const RemoveModal = ({ handleClose }) => {
   const chatApi = useChatApi();
+  const { t } = useTranslation();
 
   const targetId = useSelector(modalsSelectors.getTargetId);
 
@@ -24,7 +26,7 @@ const RemoveModal = ({ handleClose }) => {
   return (
     <>
       <Modal.Header>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modals.removeChannel')}</Modal.Title>
         <Button
           type="button"
           className="btn-close"
@@ -34,17 +36,17 @@ const RemoveModal = ({ handleClose }) => {
         />
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">Уверены?</p>
+        <p className="lead">{t('modals.confirm')}</p>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Отменить
+            {t('modals.cancel')}
           </Button>
           <Button
             type="submit"
             variant="danger"
             onClick={handleRemoveChannel}
           >
-            Удалить
+            {t('modals.remove')}
           </Button>
         </Modal.Footer>
       </Modal.Body>
