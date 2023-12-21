@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import routes from './routes.js';
 import RootPage from './components/pages/RootPage.js';
 import LoginForm from './components/pages/LoginForm.js';
@@ -18,6 +19,7 @@ const App = () => (
           <Route path={routes.signUpForm} element={<SignUpForm />} />
           <Route path={routes.pageNotFound} element={<PageNotFound />} />
         </Routes>
+        <ToastContainer />
       </div>
     </div>
   </BrowserRouter>

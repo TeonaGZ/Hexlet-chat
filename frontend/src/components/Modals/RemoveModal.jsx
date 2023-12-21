@@ -1,6 +1,7 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import useChatApi from '../../utils/useChatApi.jsx';
 import { selectors as modalsSelectors } from '../../slices/modalsSlice.js';
 
@@ -13,13 +14,10 @@ const RemoveModal = ({ handleClose }) => {
   const handleRemoveChannel = async () => {
     try {
       await chatApi.removeChannel(targetId);
+      toast.success(t('toastSuccess.removedChannel'));
       handleClose();
-    } catch (err) {
-      if (err.isAxiosError && err.response.status === 401) {
-        console.log('err', err);
-        return;
-      }
-      throw err;
+    } catch (error) {
+      toast.error(t('errors.networkError'));
     }
   };
 

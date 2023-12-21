@@ -1,17 +1,17 @@
 export default {
   translation: {
     chat: 'Hexlet Chat',
-    exit: 'Выйти',
     logIn: 'Войти',
+    exit: 'Выйти',
+    registration: 'Регистрация',
     canReroute: 'Но вы можете перейти ',
     rootPage: 'на главную страницу',
-    registration: 'Регистрация',
+    register: 'Зарегистрироваться',
     noAccount: 'Нет аккаунта?',
     username: 'Имя пользователя',
     nickname: 'Ваш ник',
     password: 'Пароль',
     confirmPassword: 'Подтвердите пароль',
-    register: 'Зарегистрироваться',
     modals: {
       cancel: 'Отменить',
       send: 'Отправить',
@@ -38,10 +38,16 @@ export default {
       removeToggle: 'Удалить',
       renameToggle: 'Переименовать',
     },
+    toastSuccess: {
+      createdChannel: 'Канал создан',
+      removedChannel: 'Канал удалён',
+      renamedChannel: 'Канал переименован',
+    },
     errors: {
       pageNotFound: 'Страница не найдена',
       userExist: 'Такой пользователь уже существует',
       incorrectProps: 'Неверные имя пользователя или пароль',
+      networkError: 'Ошибка соединения',
     },
     validationRules: {
       required: 'Обязательное поле',

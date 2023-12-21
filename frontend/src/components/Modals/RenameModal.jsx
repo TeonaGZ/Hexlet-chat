@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { modalSchema } from '../../utils/validator.js';
 import useChatApi from '../../utils/useChatApi.jsx';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
@@ -34,14 +35,15 @@ const RenameModal = ({ handleClose }) => {
     onSubmit: async (values) => {
       try {
         await chatApi.renameChannel(targetId, values.name);
+        toast.success(t('toastSuccess.renamedChannel'));
         handleClose();
-      } catch (err) {
+      } catch (error) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
+        if (error.isAxiosError && error.response.status === 401) {
           inputRef.current.focus();
           return;
         }
-        throw err;
+        toast.error(t('errors.networkError'));
       }
     },
   });

@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { modalSchema } from '../../utils/validator.js';
 import useChatApi from '../../utils/useChatApi.jsx';
-import { selectors as channelsSelectors, actions as channelsActions } from '../../slices/channelsSlice.js';
+import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
 
 const AddModal = ({ handleClose }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
 
-  const dispatch = useDispatch();
   const chatApi = useChatApi();
   const inputRef = useRef(null);
   const { t } = useTranslation();
@@ -32,16 +32,17 @@ const AddModal = ({ handleClose }) => {
     ),
     onSubmit: async (values) => {
       try {
-        const res = await chatApi.addChannel(values);
+        await chatApi.addChannel(values);
+        toast.success(t('toastSuccess.createdChannel'));
         handleClose();
-        dispatch(channelsActions.changeChannel(res.id));
-      } catch (err) {
+      } catch (error) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
+        if (error.isAxiosError && error.response.status === 401) {
           inputRef.current.focus();
           return;
         }
-        throw err;
+        console.log('err', error.message);
+        toast.error(t('errors.networkError'));
       }
     },
   });
