@@ -10,20 +10,27 @@ import AuthProvider from './context/AuthProvider.jsx';
 import SocketProvider from './context/SocketProvider.jsx';
 import App from './App.jsx';
 
+const rollbarConfig = {
+  accessToken: 'REACT_APP_ROLLBAR_TOKEN',
+  // captureUncaught: true,
+  // captureUnhandledRejections: true,
+  environment: 'testnv',
+};
+function TestError() {
+  try {
+    const a = null;
+    return a.hello();
+  } catch (error) {
+    // Здесь вы передаете ошибку в Rollbar
+    // Также можно добавить логирование в консоль для отладки
+    console.error(error);
+    throw error;
+  }
+}
+
 const init = async () => {
   const socket = io();
   const i18n = i18next.createInstance();
-
-  const rollbarConfig = {
-    accessToken: 'bf21624cf472494e8cee3e0c63c9f2d9',
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-    environment: 'testenv',
-  };
-  function TestError() {
-    const a = null;
-    return a.hello();
-  }
 
   await i18n.use(initReactI18next).init({ resources, lng: 'ru', fallbackLng: 'ru' });
 
@@ -34,8 +41,8 @@ const init = async () => {
           <I18nextProvider i18n={i18n}>
             <RollbarProvider config={rollbarConfig}>
               <ErrorBoundary>
-                <App />
                 <TestError />
+                <App />
               </ErrorBoundary>
             </RollbarProvider>
           </I18nextProvider>
