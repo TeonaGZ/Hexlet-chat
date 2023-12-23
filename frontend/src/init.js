@@ -11,22 +11,11 @@ import SocketProvider from './context/SocketProvider.jsx';
 import App from './App.jsx';
 
 const rollbarConfig = {
-  accessToken: 'REACT_APP_ROLLBAR_TOKEN',
-  // captureUncaught: true,
-  // captureUnhandledRejections: true,
-  environment: 'testnv',
+  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  environment: 'production',
 };
-function TestError() {
-  try {
-    const a = null;
-    return a.hello();
-  } catch (error) {
-    // Здесь вы передаете ошибку в Rollbar
-    // Также можно добавить логирование в консоль для отладки
-    console.error(error);
-    throw error;
-  }
-}
 
 const init = async () => {
   const socket = io();
@@ -41,7 +30,6 @@ const init = async () => {
           <I18nextProvider i18n={i18n}>
             <RollbarProvider config={rollbarConfig}>
               <ErrorBoundary>
-                <TestError />
                 <App />
               </ErrorBoundary>
             </RollbarProvider>
