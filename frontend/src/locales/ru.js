@@ -7,7 +7,7 @@ export default {
     canReroute: 'Но вы можете перейти ',
     rootPage: 'на главную страницу',
     register: 'Зарегистрироваться',
-    noAccount: 'Нет аккаунта?',
+    noAccount: 'Нет аккаунта? ',
     username: 'Имя пользователя',
     nickname: 'Ваш ник',
     password: 'Пароль',

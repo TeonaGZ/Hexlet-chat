@@ -4,6 +4,8 @@
 
 ***
 
+![Login page](./frontend/src/images/LoginPage.png)
+
 ### Description
 Hexlet chat is a simplified version of slack, where you can exchange messages in real time, add, rename and delete channels, since the project uses web sockets.
 
@@ -21,13 +23,21 @@ Make sure you have Node.js version 19.8.1 or higher installed
 ### Installation
 
 1. Clone the repository
-``` $ git clone git@github.com:TeonaGZ/frontend-project-12.git```
+```
+$ git clone git@github.com:TeonaGZ/frontend-project-12.git
+```
 2. Change the working directory
-``` $ cd frontend-project-12 ```
+```
+$ cd frontend-project-12
+```
 3. Install dependencies
-``` $ make install ```
+```
+$ make install
+```
 4. Start app
-``` $ make start ```
+```
+$ make start
+```
 
 ***
 
