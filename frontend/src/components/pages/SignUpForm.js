@@ -61,6 +61,7 @@ const SignUpForm = () => {
 
   const isInvalidUsername = formik.touched.username && formik.errors.username;
   const isInvalidPassword = formik.touched.password && formik.errors.password;
+  console.log('inv', isInvalidPassword);
   const isInvalidConfirmPassword = formik.touched.confirmPassword && formik.errors.confirmPassword;
 
   return (
@@ -89,7 +90,7 @@ const SignUpForm = () => {
                       ref={inputRef}
                     />
                     <Form.Label htmlFor="username">{t('username')}</Form.Label>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid" className="invalid-tooltip">
                       {formik.errors.username}
                     </Form.Control.Feedback>
                   </Form.Floating>
@@ -107,7 +108,7 @@ const SignUpForm = () => {
                       isInvalid={signUpFailed || isInvalidPassword}
                     />
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid" className="invalid-tooltip">
                       {formik.errors.password}
                     </Form.Control.Feedback>
                   </Form.Floating>
@@ -124,8 +125,8 @@ const SignUpForm = () => {
                       value={formik.values.confirmPassword}
                       isInvalid={signUpFailed || isInvalidConfirmPassword}
                     />
-                    <Form.Label htmlFor="password">{t('confirmPassword')}</Form.Label>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Label htmlFor="confirmPassword">{t('confirmPassword')}</Form.Label>
+                    <Form.Control.Feedback type="invalid" className="invalid-tooltip">
                       {formik.errors.confirmPassword || t('errors.userExist')}
                     </Form.Control.Feedback>
                   </Form.Floating>
