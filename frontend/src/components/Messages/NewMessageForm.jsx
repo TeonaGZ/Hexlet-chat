@@ -22,10 +22,9 @@ const NewMessageForm = ({ currentChannelId }) => {
     validationSchema: messageSchema(t('validationRules.required')),
     onSubmit: async ({ body }) => {
       filter.add(filter.getDictionary('ru'));
-      body = filter.clean(body);
 
       try {
-        await chatApi.addMessage(body, currentChannelId, currentUser.username);
+        await chatApi.addMessage(filter.clean(body), currentChannelId, currentUser.username);
         formik.resetForm();
       } catch (err) {
         formik.setSubmitting(false);

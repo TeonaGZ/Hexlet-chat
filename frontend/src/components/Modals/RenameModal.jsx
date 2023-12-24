@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import filter from 'leo-profanity';
 import { modalSchema } from '../../utils/validator.js';
 import useChatApi from '../../utils/useChatApi.jsx';
 import { selectors as channelsSelectors } from '../../slices/channelsSlice.js';
@@ -34,7 +33,6 @@ const RenameModal = ({ handleClose }) => {
       t('validationRules.duplicates'),
     ),
     onSubmit: async (values) => {
-      values.name = filter.clean(values.name);
       try {
         await chatApi.renameChannel(targetId, values.name);
         toast.success(t('toastSuccess.renamedChannel'));

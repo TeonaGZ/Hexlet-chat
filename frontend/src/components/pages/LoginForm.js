@@ -92,7 +92,7 @@ const LoginForm = () => {
                       isInvalid={authFailed}
                     />
                     <Form.Label htmlFor="password">{t('password')}</Form.Label>
-                    <Form.Control.Feedback type="invalid">
+                    <Form.Control.Feedback type="invalid" className="invalid-tooltip">
                       {t('errors.incorrectProps')}
                     </Form.Control.Feedback>
                   </Form.Group>
