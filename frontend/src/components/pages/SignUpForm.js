@@ -11,6 +11,7 @@ import {
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import useAuth from '../../utils/useAuth.jsx';
 import { signupSchema } from '../../utils/validator.js';
 import routes from '../../routes.js';
@@ -49,7 +50,7 @@ const SignUpForm = () => {
           inputRef.current.focus();
           return;
         }
-        throw err;
+        toast.error(t('errors.networkError'));
       }
     },
   });
@@ -82,6 +83,7 @@ const SignUpForm = () => {
                       placeholder={t('validationRules.nameLength')}
                       id="username"
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.username}
                       isInvalid={signUpFailed || isInvalidUsername}
                       ref={inputRef}
@@ -100,6 +102,7 @@ const SignUpForm = () => {
                       placeholder={t('validationRules.minPassword')}
                       id="password"
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.password}
                       isInvalid={signUpFailed || isInvalidPassword}
                     />
@@ -117,6 +120,7 @@ const SignUpForm = () => {
                       placeholder={t('validationRules.matchPasswords')}
                       required
                       onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
                       value={formik.values.confirmPassword}
                       isInvalid={signUpFailed || isInvalidConfirmPassword}
                     />
