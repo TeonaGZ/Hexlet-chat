@@ -4,8 +4,6 @@
 
 ***
 
-![Login page](./frontend/src/images/LoginPage.png)
-
 ### Description
 Hexlet chat is a simplified version of slack, where you can exchange messages in real time, add, rename and delete channels, since the project uses web sockets.
 
