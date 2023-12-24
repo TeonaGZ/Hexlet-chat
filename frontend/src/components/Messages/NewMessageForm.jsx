@@ -5,11 +5,13 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import useChatApi from '../../utils/useChatApi';
+import useAuth from '../../utils/useAuth.jsx';
 import { messageSchema } from '../../utils/validator.js';
 
 const NewMessageForm = ({ currentChannelId }) => {
   const inputRef = useRef(null);
   const chatApi = useChatApi();
+  const { currentUser } = useAuth();
 
   const { t } = useTranslation();
 
@@ -19,13 +21,11 @@ const NewMessageForm = ({ currentChannelId }) => {
     },
     validationSchema: messageSchema(t('validationRules.required')),
     onSubmit: async ({ body }) => {
-      const { username } = JSON.parse(localStorage.getItem('userId'));
-
       filter.add(filter.getDictionary('ru'));
       body = filter.clean(body);
 
       try {
-        await chatApi.addMessage(body, currentChannelId, username);
+        await chatApi.addMessage(body, currentChannelId, currentUser.username);
         formik.resetForm();
       } catch (err) {
         formik.setSubmitting(false);

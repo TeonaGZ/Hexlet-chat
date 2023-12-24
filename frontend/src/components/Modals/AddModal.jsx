@@ -43,7 +43,6 @@ const AddModal = ({ handleClose }) => {
           inputRef.current.focus();
           return;
         }
-        console.log('err', error.message);
         toast.error(t('errors.networkError'));
       }
     },

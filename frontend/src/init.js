@@ -10,18 +10,18 @@ import AuthProvider from './context/AuthProvider.jsx';
 import SocketProvider from './context/SocketProvider.jsx';
 import App from './App.jsx';
 
-const rollbarConfig = {
-  accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  environment: 'production',
-};
-
 const init = async () => {
   const socket = io();
-  const i18n = i18next.createInstance();
 
+  const i18n = i18next.createInstance();
   await i18n.use(initReactI18next).init({ resources, lng: 'ru', fallbackLng: 'ru' });
+
+  const rollbarConfig = {
+    accessToken: process.env.REACT_APP_ROLLBAR_TOKEN,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+    environment: 'production',
+  };
 
   return (
     <Provider store={store}>

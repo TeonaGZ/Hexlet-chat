@@ -5,14 +5,14 @@ import useAuth from '../utils/useAuth.jsx';
 import routes from '../routes.js';
 
 const Header = () => {
-  const { loggedIn, logOut } = useAuth();
+  const { user, logOut } = useAuth();
   const { t } = useTranslation();
 
   return (
     <Navbar expand="lg" variant="light" className="shadow-sm bg-wight">
       <Container>
         <Navbar.Brand href={routes.rootPage}>{t('chat')}</Navbar.Brand>
-        {!!loggedIn && <Button type="button" onClick={logOut}>{t('exit')}</Button>}
+        {!!user && <Button type="button" onClick={logOut}>{t('exit')}</Button>}
       </Container>
     </Navbar>
   );

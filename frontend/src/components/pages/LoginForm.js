@@ -39,9 +39,8 @@ const LoginForm = () => {
 
       try {
         const res = await axios.post(routes.loginPath(), values);
-        auth.logIn();
-        localStorage.setItem('userId', JSON.stringify(res.data));
-        navigate('/');
+        auth.logIn(res.data);
+        navigate(routes.rootPage);
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {

@@ -11,17 +11,9 @@ import { actions as channelsActions } from '../../slices/channelsSlice.js';
 import { actions as messagesActions } from '../../slices/messagesSlice.js';
 import ModalComponent from '../Modals/index.jsx';
 
-const getAuthHeader = () => {
-  const userId = JSON.parse(localStorage.getItem('userId'));
-  if (userId && userId.token) {
-    return { Authorization: `Bearer ${userId.token}` };
-  }
-  return {};
-};
-
 const RootPage = () => {
   const auth = useAuth();
-  const headers = getAuthHeader();
+  const headers = auth.getAuthHeader();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,32 +23,34 @@ const RootPage = () => {
         dispatch(channelsActions.addChannels(data.channels));
         dispatch(channelsActions.changeChannel(data.currentChannelId));
         dispatch(messagesActions.addMessages(data.messages));
-      } catch (err) {
-        if (err.isAxiosError && err.response.status === 401) {
+      } catch (error) {
+        if (error.isAxiosError && error.response.status === 401) {
           auth.logOut();
           return;
         }
-        throw err;
+        throw error;
       }
     };
     fetchData();
   }, [dispatch, auth, headers]);
 
-  if (!auth.loggedIn) {
-    return <Navigate to={routes.loginForm} replace />;
-  }
   return (
-    <Container className="h-100 my-4 overflow-hidden rounded shadow">
-      <Row className="h-100 flex-md-row bg-white">
-        <Col xs={4} md={2} className="border-end px-0 bg-light flex-column h-100 d-flex">
-          <ChannelsBox />
-        </Col>
-        <Col className="p-0 h-100">
-          <MessagesBox />
-        </Col>
-      </Row>
-      <ModalComponent />
-    </Container>
+    auth.user
+      ? (
+        <Container className="h-100 my-4 overflow-hidden rounded shadow">
+          <Row className="h-100 flex-md-row bg-white">
+            <Col xs={4} md={2} className="border-end px-0 bg-light flex-column h-100 d-flex">
+              <ChannelsBox />
+            </Col>
+            <Col className="p-0 h-100">
+              <MessagesBox />
+            </Col>
+          </Row>
+          <ModalComponent />
+        </Container>
+      ) : (
+        <Navigate to={routes.loginForm} replace />
+      )
   );
 };
 

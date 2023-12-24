@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import image from '../../images/NotFoundImage.svg';
 import routes from '../../routes.js';
@@ -16,7 +17,7 @@ const PageNotFound = () => {
       <h1 className="h4 text-muted">{t('errors.pageNotFound')}</h1>
       <p className="text-muted">
         {t('canReroute')}
-        <a href={routes.rootPage}>{t('rootPage')}</a>
+        <Link to={routes.rootPage}>{t('rootPage')}</Link>
       </p>
     </div>
   );

@@ -27,8 +27,6 @@ const SocketProvider = ({ socket, children }) => {
       },
       addChannel: async (channel) => {
         const { data } = await socket.emitWithAck('newChannel', channel);
-        // console.log('data', data);
-        // dispatch(channelsActions.addChannel(data));
         dispatch(channelsActions.changeChannel(data.id));
       },
       renameChannel: async (id, name) => {
