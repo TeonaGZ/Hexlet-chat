@@ -4,9 +4,9 @@ import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
-import useChatApi from '../../utils/useChatApi';
-import useAuth from '../../utils/useAuth.jsx';
-import { messageSchema } from '../../utils/validator.js';
+import useChatApi from '../utils/useChatApi.jsx';
+import useAuth from '../utils/useAuth.jsx';
+import { messageSchema } from '../utils/validator.js';
 
 const NewMessageForm = ({ currentChannelId }) => {
   const inputRef = useRef(null);

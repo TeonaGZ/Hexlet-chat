@@ -2,7 +2,7 @@ import React from 'react';
 import { PlusSquare } from 'react-bootstrap-icons';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { actions as modalsActions } from '../../slices/modalsSlice.js';
+import { actions as modalsActions } from '../slices/modalsSlice.js';
 
 const ChannelsHeader = () => {
   const dispatch = useDispatch();

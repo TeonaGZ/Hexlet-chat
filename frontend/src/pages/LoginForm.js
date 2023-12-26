@@ -11,10 +11,10 @@ import {
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import useAuth from '../../utils/useAuth.jsx';
-import formSchema from '../../utils/validator.js';
-import routes from '../../routes.js';
-import LoginImage from '../../images/LoginImage.jpeg';
+import useAuth from '../utils/useAuth.jsx';
+import formSchema from '../utils/validator.js';
+import { appRoutes, apiRoutes } from '../routes.js';
+import LoginImage from '../images/LoginImage.jpeg';
 
 const LoginForm = () => {
   const auth = useAuth();
@@ -38,9 +38,9 @@ const LoginForm = () => {
       setAuthFailed(false);
 
       try {
-        const res = await axios.post(routes.loginPath(), values);
+        const res = await axios.post(apiRoutes.loginPath(), values);
         auth.logIn(res.data);
-        navigate(routes.rootPage);
+        navigate(appRoutes.rootPage);
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 401) {
@@ -109,7 +109,7 @@ const LoginForm = () => {
             <Card.Footer className="p-4">
               <div className="text-center">
                 <span>{t('noAccount')}</span>
-                <Link to={routes.signUpForm}>{t('registration')}</Link>
+                <Link to={appRoutes.signUpForm}>{t('registration')}</Link>
               </div>
             </Card.Footer>
           </Card>

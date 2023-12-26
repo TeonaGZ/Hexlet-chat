@@ -1,11 +1,15 @@
 const apiPath = '/api/v1';
 
-export default {
-  loginPath: () => [apiPath, 'login'].join('/'),
-  dataPath: () => [apiPath, 'data'].join('/'),
-  signUpPath: () => [apiPath, 'signup'].join('/'),
+const appRoutes = {
   rootPage: '/',
   loginForm: '/login',
   signUpForm: '/signup',
-  pageNotFound: '*',
 };
+
+const apiRoutes = {
+  loginPath: () => [apiPath, 'login'].join('/'),
+  dataPath: () => [apiPath, 'data'].join('/'),
+  signUpPath: () => [apiPath, 'signup'].join('/'),
+};
+
+export { apiRoutes, appRoutes };

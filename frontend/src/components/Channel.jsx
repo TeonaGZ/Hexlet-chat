@@ -8,8 +8,8 @@ import {
   Dropdown,
 } from 'react-bootstrap';
 import filter from 'leo-profanity';
-import { actions as channelActions } from '../../slices/channelsSlice.js';
-import { actions as modalsActions } from '../../slices/modalsSlice.js';
+import { actions as channelActions } from '../slices/channelsSlice.js';
+import { actions as modalsActions } from '../slices/modalsSlice.js';
 
 const Channel = ({ channel, currentChannelId }) => {
   const dispatch = useDispatch();

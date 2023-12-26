@@ -12,10 +12,10 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import useAuth from '../../utils/useAuth.jsx';
-import { signupSchema } from '../../utils/validator.js';
-import routes from '../../routes.js';
-import SignUpImage from '../../images/SignUpImage.jpg';
+import useAuth from '../utils/useAuth.jsx';
+import { signupSchema } from '../utils/validator.js';
+import { appRoutes, apiRoutes } from '../routes.js';
+import SignUpImage from '../images/SignUpImage.jpg';
 
 const SignUpForm = () => {
   const auth = useAuth();
@@ -40,9 +40,9 @@ const SignUpForm = () => {
       setSignUpFailed(false);
 
       try {
-        const res = await axios.post(routes.signUpPath(), { username, password });
+        const res = await axios.post(apiRoutes.signUpPath(), { username, password });
         auth.logIn(res.data);
-        navigate(routes.rootPage);
+        navigate(appRoutes.rootPage);
       } catch (err) {
         formik.setSubmitting(false);
         if (err.isAxiosError && err.response.status === 409) {
@@ -61,7 +61,6 @@ const SignUpForm = () => {
 
   const isInvalidUsername = formik.touched.username && formik.errors.username;
   const isInvalidPassword = formik.touched.password && formik.errors.password;
-  console.log('inv', isInvalidPassword);
   const isInvalidConfirmPassword = formik.touched.confirmPassword && formik.errors.confirmPassword;
 
   return (

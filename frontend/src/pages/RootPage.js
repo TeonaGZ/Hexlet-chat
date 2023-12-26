@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import useAuth from '../../utils/useAuth.jsx';
-import routes from '../../routes.js';
-import ChannelsBox from '../Channels/ChannelBox.jsx';
-import MessagesBox from '../Messages/MessagesBox.jsx';
-import { actions as channelsActions } from '../../slices/channelsSlice.js';
-import { actions as messagesActions } from '../../slices/messagesSlice.js';
-import ModalComponent from '../Modals/index.jsx';
+import useAuth from '../utils/useAuth.jsx';
+import { appRoutes, apiRoutes } from '../routes.js';
+import ChannelsBox from '../components/ChannelBox.jsx';
+import MessagesBox from '../components/MessagesBox.jsx';
+import { actions as channelsActions } from '../slices/channelsSlice.js';
+import { actions as messagesActions } from '../slices/messagesSlice.js';
+import ModalComponent from '../components/Modals/index.jsx';
 
 const RootPage = () => {
   const auth = useAuth();
@@ -19,7 +19,7 @@ const RootPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(routes.dataPath(), { headers });
+        const { data } = await axios.get(apiRoutes.dataPath(), { headers });
         dispatch(channelsActions.addChannels(data.channels));
         dispatch(channelsActions.changeChannel(data.currentChannelId));
         dispatch(messagesActions.addMessages(data.messages));
@@ -49,7 +49,7 @@ const RootPage = () => {
           <ModalComponent />
         </Container>
       ) : (
-        <Navigate to={routes.loginForm} replace />
+        <Navigate to={appRoutes.loginForm} replace />
       )
   );
 };
