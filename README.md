@@ -1,3 +1,5 @@
+# Hexlet Chat
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/TeonaGZ/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/TeonaGZ/frontend-project-12/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2f8cfc243252307223df/maintainability)](https://codeclimate.com/github/TeonaGZ/frontend-project-12/maintainability)

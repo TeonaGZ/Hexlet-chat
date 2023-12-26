@@ -44,7 +44,7 @@ const NewMessageForm = ({ currentChannelId }) => {
   return (
     <div className="mt-auto px-5 py-3">
       <Form noValidate className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
-        <InputGroup>
+        <InputGroup hasValidation={!formik.dirty || !formik.isValid}>
           <Form.Control
             ref={inputRef}
             onChange={formik.handleChange}
@@ -55,7 +55,7 @@ const NewMessageForm = ({ currentChannelId }) => {
             placeholder={t('messages.inputMessage')}
             disabled={formik.isSubmitting}
           />
-          <Button variant="group-vertical" type="submit" className="border-0" disabled={formik.isSubmitting}>
+          <Button variant="group-vertical" type="submit" className="border-0" disabled={!formik.dirty || !formik.isValid}>
             <ArrowRightSquare size={20} />
             <span className="visually-hidden">{t('messages.sendMessage')}</span>
           </Button>
