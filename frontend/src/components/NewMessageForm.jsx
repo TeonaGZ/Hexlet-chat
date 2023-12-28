@@ -38,7 +38,7 @@ const NewMessageForm = ({ currentChannelId }) => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [currentChannelId, formik.values, formik.values.body]);
+  }, [currentChannelId, formik.values.body]);
 
   return (
     <div className="mt-auto px-5 py-3">

@@ -14,7 +14,7 @@ const SocketProvider = ({ socket, children }) => {
           channelId,
           username,
         };
-        await socket.timeout(6000).emitWithAck('newMessage', messageData);
+        await socket.timeout(3000).emitWithAck('newMessage', messageData);
       },
       addChannel: async (channel) => {
         const { data } = await socket.emitWithAck('newChannel', channel);
