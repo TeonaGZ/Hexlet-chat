@@ -11,9 +11,16 @@ import { actions as channelsActions } from '../slices/channelsSlice.js';
 import { actions as messagesActions } from '../slices/messagesSlice.js';
 import ModalComponent from '../components/Modals/index.jsx';
 
+const getAuthHeader = (currentUser) => {
+  if (currentUser && currentUser.token) {
+    return { Authorization: `Bearer ${currentUser.token}` };
+  }
+  return {};
+};
+
 const RootPage = () => {
   const auth = useAuth();
-  const headers = auth.getAuthHeader();
+  const headers = getAuthHeader(auth.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {

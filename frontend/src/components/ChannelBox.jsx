@@ -7,12 +7,13 @@ import { selectors as channelSelectors } from '../slices/channelsSlice.js';
 
 const ChannelsBox = () => {
   const channelRef = useRef(null);
+  const defaultChannelId = 1;
 
   const channels = useSelector(channelSelectors.selectAll);
   const currentChannelId = useSelector(channelSelectors.selectCurrentChannelId);
 
   useEffect(() => {
-    if (currentChannelId !== 1) {
+    if (currentChannelId !== defaultChannelId) {
       channelRef.current.scrollTo(currentChannelId, channelRef.current.scrollHeight);
     } else {
       channelRef.current.scrollTo(0, 0);

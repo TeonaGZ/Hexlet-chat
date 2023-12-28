@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { modalSchema } from '../../utils/validator.js';
 import useChatApi from '../../utils/useChatApi.jsx';
@@ -13,6 +14,7 @@ const RenameModal = ({ handleClose }) => {
   const channels = useSelector(channelsSelectors.selectAll);
   const channelsNames = channels.map((channel) => channel.name);
   const targetId = useSelector(modalsSelectors.getTargetId);
+  const currentChannel = channels.filter((channel) => channel.id === targetId);
 
   const chatApi = useChatApi();
   const inputRef = useRef(null);
@@ -20,11 +22,12 @@ const RenameModal = ({ handleClose }) => {
 
   useEffect(() => {
     inputRef.current.focus();
+    inputRef.current.select();
   }, []);
 
   const formik = useFormik({
     initialValues: {
-      name: '',
+      name: currentChannel[0].name,
     },
     validationSchema: modalSchema(
       channelsNames,
@@ -33,8 +36,10 @@ const RenameModal = ({ handleClose }) => {
       t('validationRules.duplicates'),
     ),
     onSubmit: async (values) => {
+      const filteredName = filter.clean(values.name);
+
       try {
-        await chatApi.renameChannel(targetId, values.name);
+        await chatApi.renameChannel(targetId, filteredName);
         toast.success(t('toastSuccess.renamedChannel'));
         handleClose();
       } catch (error) {
@@ -70,7 +75,7 @@ const RenameModal = ({ handleClose }) => {
               id="name"
               name="name"
               className="mb-2"
-              isInvalid={formik.errors.name}
+              isInvalid={formik.errors.name && formik.touched.name}
               disabled={formik.isSubmitting}
               onChange={formik.handleChange}
               value={formik.values.name}

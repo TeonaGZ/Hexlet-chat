@@ -6,7 +6,7 @@ import RootPage from './pages/RootPage.js';
 import LoginForm from './pages/LoginForm.js';
 import SignUpForm from './pages/SignUpForm.js';
 import PageNotFound from './pages/PageNotFound.js';
-import Header from './pages/Header.jsx';
+import Header from './components/Header.jsx';
 
 const App = () => (
   <BrowserRouter>

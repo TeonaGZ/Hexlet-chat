@@ -4,6 +4,7 @@ import { ArrowRightSquare } from 'react-bootstrap-icons';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
+import { toast } from 'react-toastify';
 import useChatApi from '../utils/useChatApi.jsx';
 import useAuth from '../utils/useAuth.jsx';
 import { messageSchema } from '../utils/validator.js';
@@ -11,40 +12,38 @@ import { messageSchema } from '../utils/validator.js';
 const NewMessageForm = ({ currentChannelId }) => {
   const inputRef = useRef(null);
   const chatApi = useChatApi();
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
 
-  const { t } = useTranslation();
+  filter.add(filter.getDictionary('ru'));
 
   const formik = useFormik({
     initialValues: {
       body: '',
     },
     validationSchema: messageSchema(t('validationRules.required')),
-    onSubmit: async ({ body }) => {
-      filter.add(filter.getDictionary('ru'));
-
+    onSubmit: async (values) => {
+      const filteredMessage = filter.clean(values.body);
       try {
-        await chatApi.addMessage(filter.clean(body), currentChannelId, currentUser.username);
+        await chatApi.addMessage(filteredMessage, currentChannelId, currentUser.username);
         formik.resetForm();
       } catch (err) {
         formik.setSubmitting(false);
-        if (err.isAxiosError && err.response.status === 401) {
-          inputRef.current.focus();
-          return;
-        }
-        throw err;
+        toast.error(t('errors.networkError'));
       }
     },
   });
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, [currentChannelId, formik.values]);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [currentChannelId, formik.values, formik.values.body]);
 
   return (
     <div className="mt-auto px-5 py-3">
       <Form noValidate className="py-1 border rounded-2" onSubmit={formik.handleSubmit}>
-        <InputGroup hasValidation={!formik.dirty || !formik.isValid}>
+        <InputGroup hasValidation={!formik.dirty || formik.isValid}>
           <Form.Control
             ref={inputRef}
             onChange={formik.handleChange}

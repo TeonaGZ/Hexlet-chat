@@ -7,7 +7,6 @@ import {
   Button,
   Dropdown,
 } from 'react-bootstrap';
-import filter from 'leo-profanity';
 import { actions as channelActions } from '../slices/channelsSlice.js';
 import { actions as modalsActions } from '../slices/modalsSlice.js';
 
@@ -49,7 +48,7 @@ const Channel = ({ channel, currentChannelId }) => {
       <Dropdown as={ButtonGroup} className="d-flex">
         <Button onClick={handleSelectChannel} className="w-100 rounded-0 text-start text-truncate" variant={channel.id === currentChannelId && 'secondary'}>
           <span># </span>
-          {filter.clean(channel.name)}
+          {channel.name}
         </Button>
         {channel.removable ? ModalMenu : null}
       </Dropdown>

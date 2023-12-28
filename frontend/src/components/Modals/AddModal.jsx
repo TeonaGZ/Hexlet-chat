@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import filter from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { modalSchema } from '../../utils/validator.js';
 import useChatApi from '../../utils/useChatApi.jsx';
@@ -31,8 +32,10 @@ const AddModal = ({ handleClose }) => {
       t('validationRules.duplicates'),
     ),
     onSubmit: async (values) => {
+      const filteredValue = filter.clean(values.name);
+
       try {
-        await chatApi.addChannel(values);
+        await chatApi.addChannel({ name: filteredValue });
         toast.success(t('toastSuccess.createdChannel'));
         handleClose();
       } catch (error) {

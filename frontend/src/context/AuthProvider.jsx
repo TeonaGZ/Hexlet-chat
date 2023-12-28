@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo } from 'react';
 import { AuthContext } from './index.js';
 
 const AuthProvider = ({ children }) => {
@@ -15,20 +15,12 @@ const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const getAuthHeader = useCallback(() => {
-    if (currentUser && currentUser.token) {
-      return { Authorization: `Bearer ${currentUser.token}` };
-    }
-    return {};
-  }, [currentUser]);
-
   const valuesOfProvider = useMemo(() => ({
     currentUser,
     user,
     logIn,
     logOut,
-    getAuthHeader,
-  }), [user, currentUser, getAuthHeader]);
+  }), [user, currentUser]);
 
   return (
     <AuthContext.Provider value={valuesOfProvider}>
